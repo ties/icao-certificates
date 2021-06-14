@@ -73,8 +73,10 @@ try {
   assert.ok(verified);
   console.log(result.toJSON());
 
-  fs.writeFileSync('./certificates.bin', Buffer.from(result.certList.toBER()));
-  console.log(asn1);
+  // Write all the certificates to individual files
+  result.certList.valueBlock.value.map((cert, idx) => {
+    fs.writeFileSync(`./certificate-${idx}.der`, Buffer.from(cert.toBER()));
+  });
 } catch (error) {
   console.log(error);
 }
