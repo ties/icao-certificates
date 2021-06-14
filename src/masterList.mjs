@@ -70,6 +70,9 @@ try {
 
   const { result, verified } = asn1js.compareSchema(certificatesOctetString, certificatesOctetString, asn1_schema_internal);
 
+  // Check that the version matches
+  assert.strictEqual(result.version.valueBlock.valueDec, 0);
+
   assert.ok(verified);
   console.log(result.toJSON());
 
